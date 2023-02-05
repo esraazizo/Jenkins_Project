@@ -5,7 +5,7 @@ pipeline {
         stage('build') {
             steps {
                 script {
-                   if (BRANCH_NAME == "release") {
+                   if (env.BRANCH_NAME == "release") {
                        withCredentials([usernamePassword(credentialsId: 'esraa-docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                            sh """
                                 docker login -u $USERNAME -p $PASSWORD
