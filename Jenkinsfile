@@ -11,7 +11,7 @@ pipeline {
                                 docker login -u $USERNAME -p $PASSWORD
                                 docker build -t esraazizo/esraa-bakehouse:${BUILD_NUMBER} .
                                 docker push esraazizo/esraa-bakehouse:${BUILD_NUMBER}
-                                echo ${BUILD_NUMBER} > ../esraa-sbakehouse.txt
+                                echo ${BUILD_NUMBER} > ../esraa-bakehouse.txt
                            """
                        }
                     }
@@ -21,7 +21,7 @@ pipeline {
         stage('deploy') {
             steps {
                 script {
-                    if (BRANCH_NAME == "dev" || BRANCH_NAME == "test" || BRANCH_NAME == "prod") {
+                    if (env.BRANCH_NAME == "dev" || env.BRANCH_NAME == "test" || env.BRANCH_NAME == "prod") {
                             withCredentials([file(credentialsId: 'k8s-conf', variable: 'KUBECONFIG')]) {
                           sh """
                               export BUILD_NUMBER=\$(cat ../esraa-bakehouse.txt)
