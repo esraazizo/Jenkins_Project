@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script {
                     if (env.BRANCH_NAME == "developers" ) {
-                       withCredentials([usernamePassword(credentialsId: 'hu-dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                       withCredentials([usernamePassword(credentialsId: 'esraa-docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                            sh """
                                 docker login -u $USERNAME -p $PASSWORD
                                 docker build -t esraazizo/bakehouse:${BUILD_NUMBER} .
